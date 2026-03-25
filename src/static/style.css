@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e6e6e6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 30px 15px;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.title-box {
+    border: 5px solid #2fbf5a;
+    background: #f8f8f8;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #990019;
+    text-align: center;
+    padding: 20px;
+}
+
+.option-box {
+    border: 5px solid #990019;
+    background: #f8f8f8;
+    min-height: 95px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 14px 18px;
+}
+
+.option-box label {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: #990019;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.option-box select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 2px solid #990019;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.play-button {
+    position: relative;
+    background: #f8f8f8;
+    color: #2fbf5a;
+    border: 5px solid #2fbf5a;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 16px 50px 16px 28px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.play-button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -38px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+    border-left: 38px solid #2fbf5a;
+}
+
+.play-button:hover {
+    background: #eefaf1;
+}
+
+@media (max-width: 480px) {
+    .title-box {
+        font-size: 1.6rem;
+        height: 120px;
+    }
+
+    .play-button {
+        font-size: 1rem;
+        padding: 14px 42px 14px 24px;
+    }
+
+    .play-button::after {
+        right: -32px;
+        border-top: 24px solid transparent;
+        border-bottom: 24px solid transparent;
+        border-left: 32px solid #2fbf5a;
+    }
+}

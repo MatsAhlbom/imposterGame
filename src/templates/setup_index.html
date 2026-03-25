@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starta spel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form action="/start-game" method="POST">
+            <div class="title-box">
+                Imposter Game
+            </div>
+
+            <div class="option-box">
+                <label for="player_count">Antal spelare</label>
+                <select name="player_count" id="player_count" required>
+                    <option value="" disabled selected>Välj antal spelare</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+
+            <div class="option-box">
+                <label for="category">Kategori</label>
+                <select name="category" id="category" required>
+                    <option value="" disabled selected>Välj kategori</option>
+                    <option value="djur">Djur</option>
+                    <option value="mat">Mat</option>
+                    <option value="länder">Länder</option>
+                    <option value="kändisar">Kändisar</option>
+                </select>
+            </div>
+
+            <div class="option-box">
+                <label for="impostor_count">Antal imposters</label>
+                <select name="impostor_count" id="impostor_count" required>
+                    <option value="" disabled selected>Välj antal imposters</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div class="button-wrapper">
+                <button type="submit" class="play-button">Spela</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
