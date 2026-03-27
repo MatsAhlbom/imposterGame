@@ -8,34 +8,41 @@
 </head>
 <body>
     <div class="container">
-        <form action="/start-game" method="POST">
+        <form method="POST" id="game-form">
             <div class="title-box">
                 Imposter Game
             </div>
 
             <div class="option-box">
-                <label for="player_count">Antal spelare</label>
-                <select name="player_count" id="player_count" required>
-                    <option value="" disabled selected>Välj antal spelare</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
+                <label>Spelare</label>
+
+                <div id="players-list">
+                    <div class="player-row">
+                        <input type="text" name="players[]" placeholder="Spelare 1" required>
+                        <button type="button" class="remove-player-btn" onclick="removePlayer(this)">−</button>
+                    </div>
+
+                    <div class="player-row">
+                        <input type="text" name="players[]" placeholder="Spelare 2" required>
+                        <button type="button" class="remove-player-btn" onclick="removePlayer(this)">−</button>
+                    </div>
+
+                    <div class="player-row">
+                        <input type="text" name="players[]" placeholder="Spelare 3" required>
+                        <button type="button" class="remove-player-btn" onclick="removePlayer(this)">−</button>
+                    </div>
+                </div>
+
+                <button type="button" class="add-player-btn" onclick="addPlayer()">
+                    + Lägg till spelare
+                </button>
             </div>
 
             <div class="option-box">
                 <label for="category">Kategori</label>
                 <select name="category" id="category" required>
                     <option value="" disabled selected>Välj kategori</option>
-                    <option value="djur">Djur</option>
-                    <option value="mat">Mat</option>
-                    <option value="länder">Länder</option>
-                    <option value="kändisar">Kändisar</option>
+                    <option value="Personer">Personer</option>
                 </select>
             </div>
 
@@ -54,5 +61,100 @@
             </div>
         </form>
     </div>
+
+    <script>
+        const MIN_PLAYERS = 3;
+        const MAX_PLAYERS = 10;
+
+        function addPlayer() {
+            const playersList = document.getElementById("players-list");
+            const currentCount = playersList.children.length;
+
+            if (currentCount >= MAX_PLAYERS) {
+                alert(`Max antal spelare är ${MAX_PLAYERS}.`);
+                return;
+            }
+
+            const newIndex = currentCount + 1;
+
+            const row = document.createElement("div");
+            row.className = "player-row";
+
+            row.innerHTML = `
+                <input type="text" name="players[]" placeholder="Spelare ${newIndex}" required>
+                <button type="button" class="remove-player-btn" onclick="removePlayer(this)">−</button>
+            `;
+
+            playersList.appendChild(row);
+            updatePlayerPlaceholders();
+            updateRemoveButtons();
+        }
+
+        function removePlayer(button) {
+            const playersList = document.getElementById("players-list");
+
+            if (playersList.children.length <= MIN_PLAYERS) {
+                alert(`Du måste ha minst ${MIN_PLAYERS} spelare.`);
+                return;
+            }
+
+            button.parentElement.remove();
+            updatePlayerPlaceholders();
+            updateRemoveButtons();
+        }
+
+        function updatePlayerPlaceholders() {
+            const playerInputs = document.querySelectorAll('#players-list input[name="players[]"]');
+
+            playerInputs.forEach((input, index) => {
+                input.placeholder = `Spelare ${index + 1}`;
+            });
+        }
+
+        function updateRemoveButtons() {
+            const playersList = document.getElementById("players-list");
+            const removeButtons = document.querySelectorAll(".remove-player-btn");
+            const isMinPlayers = playersList.children.length <= MIN_PLAYERS;
+
+            removeButtons.forEach(button => {
+                button.disabled = isMinPlayers;
+            });
+        }
+
+        document.getElementById("game-form").addEventListener("submit", function (event) {
+            const playerInputs = document.querySelectorAll('#players-list input[name="players[]"]');
+            const impostorCount = parseInt(document.getElementById("impostor_count").value, 10);
+
+            const players = Array.from(playerInputs)
+                .map(input => input.value.trim())
+                .filter(name => name !== "");
+
+            if (players.length < MIN_PLAYERS) {
+                event.preventDefault();
+                alert(`Du måste ha minst ${MIN_PLAYERS} spelare.`);
+                return;
+            }
+
+            if (players.length > MAX_PLAYERS) {
+                event.preventDefault();
+                alert(`Max antal spelare är ${MAX_PLAYERS}.`);
+                return;
+            }
+
+            if (new Set(players).size !== players.length) {
+                event.preventDefault();
+                alert("Alla spelarnamn måste vara unika.");
+                return;
+            }
+
+            if (!isNaN(impostorCount) && impostorCount >= players.length) {
+                event.preventDefault();
+                alert("Antal imposters måste vara färre än antal spelare.");
+                return;
+            }
+        });
+
+        updateRemoveButtons();
+    </script>
 </body>
 </html>

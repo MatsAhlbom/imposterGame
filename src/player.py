@@ -10,23 +10,24 @@ def load_words(wordListPath):
     return (word, hint)
 
 class Player():
-    def __init__(self, word, hint):
+    def __init__(self, name, word, hint):
         self.impostor = False
+        self.name = name
         self.word = word
         self.hint = hint
 
     def show_hint(self):
-        print(self.hint)
+        print(f"{self.name}: {self.hint}")
         return
 
     def show_word(self):
-        print(self.word)
+        print(f"{self.name}: {self.word}")
         return
 
     def show(self):
         if self.impostor:
             self.show_hint()
-            return
+            return self.hint
         
         self.show_word()
-        return
+        return self.word

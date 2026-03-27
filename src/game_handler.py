@@ -1,13 +1,32 @@
 from .player import Player, load_words
 import random
 
-AMOUNT_OF_PLAYERS = 3
 players = []
-word, hint = load_words("wordList.json")
+categoryToList = {"Personer": "wordList.json"}
 
-for _ in range(AMOUNT_OF_PLAYERS):
-    players.append(Player(word, hint))
-players[random.randint(0, AMOUNT_OF_PLAYERS-1)].impostor = True
+def init_game(player_count: int, playerNames: list, category: str, imposter_count: int):
+    # #remove old session
+    # players = []
+    
+    #load in word list
+    word, hint = load_words(categoryToList[category])
 
-for player in players:
-    player.show()
+    #create the playes
+    for i in range(player_count):
+        players.append(Player(playerNames[i], word, hint))
+
+    #assign imposters
+    chosen_imposters = random.sample(players, imposter_count)
+    for player in chosen_imposters:
+        player.impostor = True
+
+def test_run():
+    for player in players:
+        player.show()
+
+
+def get_playerName(player_index):
+    return players[player_index].name
+
+def get_word(player_index):
+    return players[player_index].show()

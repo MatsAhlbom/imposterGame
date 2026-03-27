@@ -119,3 +119,45 @@ form {
         border-left: 32px solid #2fbf5a;
     }
 }
+
+.player-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.player-row input {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 2px solid #990019;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.add-player-btn,
+.remove-player-btn {
+    border: 2px solid #990019;
+    background: white;
+    color: #990019;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-player-btn {
+    margin-top: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+}
+
+.remove-player-btn {
+    min-width: 44px;
+    padding: 0 12px;
+    font-size: 1.2rem;
+}
+
+.remove-player-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spelarrunda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .turn-form {
+            align-items: center;
+        }
+
+        .turn-screen {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 52px;
+            padding-top: 6px;
+        }
+
+        .player-display {
+            width: 100%;
+            min-height: 155px;
+            border: 5px solid #2fbf5a;
+            background: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2fbf5a;
+            word-break: break-word;
+        }
+
+        .reveal-button {
+            width: 56%;
+            min-width: 210px;
+            min-height: 130px;
+            border: 5px solid #2fbf5a;
+            background: #f8f8f8;
+            color: #2fbf5a;
+            font-size: 1.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .reveal-button:hover {
+            background: #eefaf1;
+        }
+
+        .reveal-button:disabled {
+            cursor: default;
+            opacity: 0.85;
+        }
+
+        .next-button {
+            min-width: 210px;
+            font-size: 1.15rem;
+            padding: 18px 58px 18px 34px;
+        }
+
+        @media (max-width: 480px) {
+            .turn-screen {
+                gap: 40px;
+            }
+
+            .player-display {
+                min-height: 135px;
+                font-size: 1.6rem;
+                padding: 18px;
+            }
+
+            .reveal-button {
+                width: 68%;
+                min-width: 0;
+                min-height: 110px;
+                font-size: 1.35rem;
+            }
+
+            .next-button {
+                min-width: 180px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" class="turn-form">
+            <div class="turn-screen">
+                <div
+                    id="display-box"
+                    class="player-display"
+                    data-player-name="{{ player_name }}"
+                    data-word="{{ word }}"
+                >
+                    {{ player_name }}
+                </div>
+
+                <button
+                    type="button"
+                    id="reveal-button"
+                    class="reveal-button"
+                    onclick="showWord()"
+                >
+                    Visa
+                </button>
+
+                <input type="hidden" name="action" value="next_player">
+
+                {% if player_index is defined %}
+                    <input type="hidden" name="player_index" value="{{ player_index }}">
+                {% endif %}
+
+                {% if round_id is defined %}
+                    <input type="hidden" name="round_id" value="{{ round_id }}">
+                {% endif %}
+
+                <div class="button-wrapper">
+                    <button type="submit" class="play-button next-button">
+                        Nästa Spelare
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function showWord() {
+            const displayBox = document.getElementById("display-box");
+            const revealButton = document.getElementById("reveal-button");
+
+            displayBox.textContent = displayBox.dataset.word;
+            revealButton.disabled = true;
+            revealButton.textContent = "Visat";
+        }
+    </script>
+</body>
+</html>
