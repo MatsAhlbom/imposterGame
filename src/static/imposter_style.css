@@ -1,0 +1,289 @@
+:root {
+    --bg: #4f7f2d;
+    --bg-dark: #436f26;
+    --panel: #79b548;
+    --panel-top: #a6df6e;
+    --panel-edge: #5e9339;
+    --button: #26db27;
+    --button-dark: #16b91a;
+    --text: #0d0d0d;
+    --text-soft: rgba(13, 13, 13, 0.72);
+    --shadow: rgba(0, 0, 0, 0.22);
+    --danger: #1f3d12;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 28%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-dark) 100%);
+    color: var(--text);
+}
+
+.page-shell {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 1.5rem 1.1rem 2rem;
+}
+
+.container {
+    width: 100%;
+}
+
+.stack-form,
+.round-form,
+.turn-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.logo-title {
+    text-align: center;
+    font-size: clamp(3rem, 11vw, 5rem);
+    line-height: 0.92;
+    letter-spacing: 0.03em;
+    margin: 0 0 0.25rem;
+    text-transform: uppercase;
+}
+
+.screen-subtitle {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    margin: 0 0 0.5rem;
+}
+
+.panel {
+    position: relative;
+    width: 100%;
+    border-radius: 1.5rem;
+    background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel) 14%, var(--panel) 100%);
+    box-shadow:
+        inset 0 0.35rem 0 rgba(255, 255, 255, 0.22),
+        inset 0 -0.18rem 0 rgba(0, 0, 0, 0.14),
+        0 0.6rem 1rem var(--shadow);
+    border: 2px solid rgba(19, 52, 11, 0.18);
+    padding: 1.2rem 1rem 1rem;
+}
+
+.panel-heading {
+    font-size: clamp(1.45rem, 6vw, 2.1rem);
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 0.9rem;
+    line-height: 1;
+}
+
+.panel-subheading {
+    margin: 0 0 0.75rem;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+}
+
+.field-grid {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.field-label {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+}
+
+.field-control,
+.player-row input {
+    width: 100%;
+    min-height: 3.2rem;
+    border: 2px solid rgba(14, 38, 8, 0.25);
+    border-radius: 0.95rem;
+    padding: 0.8rem 0.95rem;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    background: rgba(243, 255, 232, 0.92);
+    color: var(--text);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+.field-control:focus,
+.player-row input:focus {
+    outline: 3px solid rgba(38, 219, 39, 0.35);
+    border-color: rgba(14, 38, 8, 0.35);
+}
+
+.players-block {
+    display: grid;
+    gap: 0.65rem;
+    padding-bottom: 5px;
+}
+
+.player-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.55rem;
+    align-items: center;
+}
+
+.icon-button,
+.secondary-button {
+    border: 0;
+    border-radius: 0.95rem;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.icon-button {
+    width: 3.15rem;
+    min-height: 3.15rem;
+    font-size: 1.5rem;
+    background: rgba(31, 61, 18, 0.12);
+    color: var(--danger);
+}
+
+.icon-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.secondary-button {
+    width: 100%;
+    min-height: 3.1rem;
+    padding: 0.85rem 1rem;
+    background: rgba(243, 255, 232, 0.78);
+    color: var(--danger);
+    font-size: 0.98rem;
+}
+
+.secondary-button:hover,
+.icon-button:hover {
+    filter: brightness(0.98);
+}
+
+.arrow-button-wrap {
+    padding-top: 0.35rem;
+}
+
+.arrow-button {
+    position: relative;
+    width: min(100%, 290px);
+    min-height: 4.5rem;
+    margin: 0 auto;
+    border: 2px solid rgba(15, 45, 6, 0.35);
+    border-right: 0;
+    background: linear-gradient(180deg, #31e330 0%, var(--button) 100%);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    box-shadow: 0 0.55rem 0.9rem rgba(0, 0, 0, 0.16);
+}
+
+.arrow-button::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -3.6rem;
+    width: 0;
+    height: 0;
+    border-top: calc(2.25rem + 2px) solid transparent;
+    border-bottom: calc(2.25rem + 2px) solid transparent;
+    border-left: 3.6rem solid var(--button);
+    filter: drop-shadow(2px 0 0 rgba(15, 45, 6, 0.35));
+}
+
+.arrow-button:hover,
+.reveal-button:hover {
+    filter: brightness(1.03);
+}
+
+.arrow-button:active,
+.reveal-button:active,
+.secondary-button:active,
+.icon-button:active {
+    transform: translateY(1px);
+}
+
+.center-panel {
+    min-height: 11rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display-text {
+    text-align: center;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    word-break: break-word;
+}
+
+.reveal-button {
+    width: 100%;
+    min-height: 4.25rem;
+    border: 0;
+    border-radius: 1.15rem;
+    background: rgba(243, 255, 232, 0.82);
+    color: var(--danger);
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.reveal-button:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.round-screen,
+.turn-screen {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.info-strip {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    margin: 0;
+}
+
+@media (min-width: 640px) {
+    .page-shell {
+        padding-top: 2rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .panel {
+        padding: 1.35rem 1.2rem 1.15rem;
+    }
+}

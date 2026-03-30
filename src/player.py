@@ -2,7 +2,7 @@ import random
 import json
 
 def load_words(wordListPath):
-    with open(wordListPath, "r") as f:
+    with open(wordListPath, "r", encoding="utf-8") as f:
         word_list = json.load(f)
 
     word, hint = random.choice(list(word_list.items()))
@@ -17,17 +17,13 @@ class Player():
         self.hint = hint
 
     def show_hint(self):
-        print(f"{self.name}: {self.hint}")
-        return
+        return (f"Impostor: {self.hint}")
 
     def show_word(self):
-        print(f"{self.name}: {self.word}")
-        return
+        return (f"{self.word}")
 
     def show(self):
         if self.impostor:
-            self.show_hint()
-            return self.hint
+            return self.show_hint()
         
-        self.show_word()
-        return self.word
+        return self.show_word()

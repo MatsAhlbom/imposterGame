@@ -6,7 +6,7 @@ categoryToList = {"Personer": "wordList.json"}
 
 def init_game(player_count: int, playerNames: list, category: str, imposter_count: int):
     # #remove old session
-    # players = []
+    players.clear()
     
     #load in word list
     word, hint = load_words(categoryToList[category])
@@ -20,13 +20,11 @@ def init_game(player_count: int, playerNames: list, category: str, imposter_coun
     for player in chosen_imposters:
         player.impostor = True
 
-def test_run():
-    for player in players:
-        player.show()
-
-
 def get_playerName(player_index):
     return players[player_index].name
 
 def get_word(player_index):
     return players[player_index].show()
+
+def get_random_player():
+    return random.choice(players)

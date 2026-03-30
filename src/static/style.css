@@ -161,3 +161,60 @@ form {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.round-form {
+    gap: 0;
+}
+
+.round-screen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 72px;
+    padding-top: 24px;
+}
+
+.round-box,
+.round-button {
+    width: 100%;
+    min-height: 170px;
+    border: 5px solid #c40000;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #f2b300;
+}
+
+.player-name-box {
+    word-break: break-word;
+}
+
+.round-button {
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.round-button:hover {
+    background: #fff7db;
+}
+
+@media (max-width: 480px) {
+    .round-screen {
+        gap: 48px;
+        padding-top: 12px;
+    }
+
+    .round-box,
+    .round-button {
+        min-height: 135px;
+        font-size: 1.6rem;
+        padding: 18px;
+    }
+}

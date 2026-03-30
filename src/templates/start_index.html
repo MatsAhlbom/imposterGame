@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostor Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form method="POST" class="round-form">
+            <div class="round-screen">
+                <div class="round-box player-name-box">
+                    {{ first_player }}
+                </div>
+
+                <button
+                    type="submit"
+                    name="action"
+                    value="new_round"
+                    class="round-button"
+                >
+                    Ny runda
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

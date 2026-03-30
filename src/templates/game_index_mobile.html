@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostor Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='imposter_style.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <div class="container">
+            <form method="POST" class="turn-form">
+                <header>
+                    <h1 class="logo-title">Imposter</h1>
+                </header>
+
+                <div class="turn-screen">
+                    <section class="panel center-panel">
+                        <div
+                            id="display-box"
+                            class="display-text"
+                            data-player-name="{{ player_name }}"
+                            data-word="{{ word }}"
+                        >
+                            {{ player_name }}
+                        </div>
+                    </section>
+
+                    <button
+                        type="button"
+                        id="reveal-button"
+                        class="reveal-button"
+                        onclick="showWord()"
+                    >
+                        Visa ord
+                    </button>
+
+                    <input type="hidden" name="action" value="next_player">
+
+                    {% if player_index is defined %}
+                        <input type="hidden" name="player_index" value="{{ player_index }}">
+                    {% endif %}
+
+                    {% if round_id is defined %}
+                        <input type="hidden" name="round_id" value="{{ round_id }}">
+                    {% endif %}
+
+                    <div class="arrow-button-wrap">
+                        <button type="submit" class="arrow-button">Nästa</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function showWord() {
+            const displayBox = document.getElementById("display-box");
+            const revealButton = document.getElementById("reveal-button");
+
+            displayBox.textContent = displayBox.dataset.word;
+            revealButton.disabled = true;
+            revealButton.textContent = "Visat";
+        }
+    </script>
+</body>
+</html>

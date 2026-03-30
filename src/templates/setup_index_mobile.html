@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostor Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='imposter_style.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <div class="container">
+            <form method="POST" id="game-form" class="stack-form">
+                <header>
+                    <h1 class="logo-title">Imposter</h1>
+                </header>
+
+                <section class="panel">
+                    <h2 class="panel-heading">Antal spelare</h2>
+
+                    <div class="players-block" id="players-list">
+                        <div class="player-row">
+                            <input type="text" name="players[]" placeholder="Spelare 1" required>
+                            <button type="button" class="icon-button remove-player-btn" onclick="removePlayer(this)" aria-label="Ta bort spelare">−</button>
+                        </div>
+
+                        <div class="player-row">
+                            <input type="text" name="players[]" placeholder="Spelare 2" required>
+                            <button type="button" class="icon-button remove-player-btn" onclick="removePlayer(this)" aria-label="Ta bort spelare">−</button>
+                        </div>
+
+                        <div class="player-row">
+                            <input type="text" name="players[]" placeholder="Spelare 3" required>
+                            <button type="button" class="icon-button remove-player-btn" onclick="removePlayer(this)" aria-label="Ta bort spelare">−</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="secondary-button add-player-btn" onclick="addPlayer()">
+                        + Lägg till spelare
+                    </button>
+                </section>
+
+                <section class="panel">
+                    <h2 class="panel-heading">Kategori</h2>
+                    <div class="field-grid">
+                        <div>
+                            <label class="field-label" for="category">Välj kategori</label>
+                            <select name="category" id="category" class="field-control" required>
+                                <option value="" disabled selected>Välj kategori</option>
+                                <option value="Personer">Personer</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h2 class="panel-heading">Antal imposters</h2>
+                    <div class="field-grid">
+                        <div>
+                            <label class="field-label" for="impostor_count">Välj antal</label>
+                            <select name="impostor_count" id="impostor_count" class="field-control" required>
+                                <option value="" disabled selected>Välj antal imposters</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="arrow-button-wrap">
+                    <button type="submit" class="arrow-button">Starta</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const MIN_PLAYERS = 3;
+        const MAX_PLAYERS = 10;
+
+        function addPlayer() {
+            const playersList = document.getElementById("players-list");
+            const currentCount = playersList.children.length;
+
+            if (currentCount >= MAX_PLAYERS) {
+                alert(`Max antal spelare är ${MAX_PLAYERS}.`);
+                return;
+            }
+
+            const newIndex = currentCount + 1;
+            const row = document.createElement("div");
+            row.className = "player-row";
+            row.innerHTML = `
+                <input type="text" name="players[]" placeholder="Spelare ${newIndex}" required>
+                <button type="button" class="icon-button remove-player-btn" onclick="removePlayer(this)" aria-label="Ta bort spelare">−</button>
+            `;
+
+            playersList.appendChild(row);
+            updatePlayerPlaceholders();
+            updateRemoveButtons();
+        }
+
+        function removePlayer(button) {
+            const playersList = document.getElementById("players-list");
+
+            if (playersList.children.length <= MIN_PLAYERS) {
+                alert(`Du måste ha minst ${MIN_PLAYERS} spelare.`);
+                return;
+            }
+
+            button.parentElement.remove();
+            updatePlayerPlaceholders();
+            updateRemoveButtons();
+        }
+
+        function updatePlayerPlaceholders() {
+            const playerInputs = document.querySelectorAll('#players-list input[name="players[]"]');
+            playerInputs.forEach((input, index) => {
+                input.placeholder = `Spelare ${index + 1}`;
+            });
+        }
+
+        function updateRemoveButtons() {
+            const playersList = document.getElementById("players-list");
+            const removeButtons = document.querySelectorAll(".remove-player-btn");
+            const isMinPlayers = playersList.children.length <= MIN_PLAYERS;
+
+            removeButtons.forEach(button => {
+                button.disabled = isMinPlayers;
+            });
+        }
+
+        document.getElementById("game-form").addEventListener("submit", function (event) {
+            const playerInputs = document.querySelectorAll('#players-list input[name="players[]"]');
+            const impostorCount = parseInt(document.getElementById("impostor_count").value, 10);
+
+            const players = Array.from(playerInputs)
+                .map(input => input.value.trim())
+                .filter(name => name !== "");
+
+            if (players.length < MIN_PLAYERS) {
+                event.preventDefault();
+                alert(`Du måste ha minst ${MIN_PLAYERS} spelare.`);
+                return;
+            }
+
+            if (players.length > MAX_PLAYERS) {
+                event.preventDefault();
+                alert(`Max antal spelare är ${MAX_PLAYERS}.`);
+                return;
+            }
+
+            if (new Set(players).size !== players.length) {
+                event.preventDefault();
+                alert("Alla spelarnamn måste vara unika.");
+                return;
+            }
+
+            if (!isNaN(impostorCount) && impostorCount >= players.length) {
+                event.preventDefault();
+                alert("Antal imposters måste vara färre än antal spelare.");
+            }
+        });
+
+        updateRemoveButtons();
+    </script>
+</body>
+</html>
