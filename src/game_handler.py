@@ -2,7 +2,7 @@ from .player import Player, load_words
 import random
 
 players = []
-categoryToList = {"Personer": "wordList.json", "Brainrot": "wordList_brainrot.json"}
+categoryToList = {"Personer": "wordList.json", "Brainrot": "wordList_brainrot.json", "Sport": "wordList_sport.json"}
 
 def init_game(player_count: int, playerNames: list, category: str, imposter_count: int):
     # #remove old session
