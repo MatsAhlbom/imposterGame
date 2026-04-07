@@ -134,7 +134,7 @@ body {
 .players-block {
     display: grid;
     gap: 0.65rem;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
 }
 
 .player-row {

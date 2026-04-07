@@ -2,7 +2,7 @@ from .player import Player, load_words
 import random
 
 players = []
-categoryToList = {"Personer": "wordList.json"}
+categoryToList = {"Personer": "wordList.json", "Brainrot": "wordList_brainrot.json"}
 
 def init_game(player_count: int, playerNames: list, category: str, imposter_count: int):
     # #remove old session
@@ -19,6 +19,10 @@ def init_game(player_count: int, playerNames: list, category: str, imposter_coun
     chosen_imposters = random.sample(players, imposter_count)
     for player in chosen_imposters:
         player.impostor = True
+
+def test_run():
+    for player in players:
+        player.show()
 
 def get_playerName(player_index):
     return players[player_index].name

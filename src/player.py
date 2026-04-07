@@ -17,13 +17,14 @@ class Player():
         self.hint = hint
 
     def show_hint(self):
-        return (f"Impostor: {self.hint}")
+        hint = f"Impostor: {self.hint}"
+        return hint
 
     def show_word(self):
-        return (f"{self.word}")
+        word = f"{self.word}"
+        return word
 
     def show(self):
         if self.impostor:
             return self.show_hint()
-        
         return self.show_word()
